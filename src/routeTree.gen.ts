@@ -10,33 +10,77 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ApiPublicDownloaderTiktokRouteImport } from './routes/api/public/downloader/tiktok'
+import { Route as ApiPublicRandomCosplayRouteImport } from './routes/api/public/random/cosplay'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicDownloaderTiktokRoute =
+  ApiPublicDownloaderTiktokRouteImport.update({
+    id: '/api/public/downloader/tiktok',
+    path: '/api/public/downloader/tiktok',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicRandomCosplayRoute = ApiPublicRandomCosplayRouteImport.update({
+  id: '/api/public/random/cosplay',
+  path: '/api/public/random/cosplay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
+  '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
+  '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
+  '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/api/public/downloader/tiktok'
+    | '/api/public/random/cosplay'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/api/public/downloader/tiktok'
+    | '/api/public/random/cosplay'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/api/public/downloader/tiktok'
+    | '/api/public/random/cosplay'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  ApiPublicDownloaderTiktokRoute: typeof ApiPublicDownloaderTiktokRoute
+  ApiPublicRandomCosplayRoute: typeof ApiPublicRandomCosplayRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +92,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/downloader/tiktok': {
+      id: '/api/public/downloader/tiktok'
+      path: '/api/public/downloader/tiktok'
+      fullPath: '/api/public/downloader/tiktok'
+      preLoaderRoute: typeof ApiPublicDownloaderTiktokRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/random/cosplay': {
+      id: '/api/public/random/cosplay'
+      path: '/api/public/random/cosplay'
+      fullPath: '/api/public/random/cosplay'
+      preLoaderRoute: typeof ApiPublicRandomCosplayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  ApiPublicDownloaderTiktokRoute: ApiPublicDownloaderTiktokRoute,
+  ApiPublicRandomCosplayRoute: ApiPublicRandomCosplayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
