@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ApiPublicDownloaderTiktokRouteImport } from './routes/api/public/downloader/tiktok'
 import { Route as ApiPublicRandomCosplayRouteImport } from './routes/api/public/random/cosplay'
 
@@ -30,6 +31,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDownloaderTiktokRoute =
   ApiPublicDownloaderTiktokRouteImport.update({
     id: '/api/public/downloader/tiktok',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/docs': typeof DocsRoute
   '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
   '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/docs': typeof DocsRoute
   '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
   '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/docs': typeof DocsRoute
   '/api/public/downloader/tiktok': typeof ApiPublicDownloaderTiktokRoute
   '/api/public/random/cosplay': typeof ApiPublicRandomCosplayRoute
 }
@@ -70,6 +79,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/docs'
     | '/api/public/downloader/tiktok'
     | '/api/public/random/cosplay'
   fileRoutesByTo: FileRoutesByTo
@@ -77,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/docs'
     | '/api/public/downloader/tiktok'
     | '/api/public/random/cosplay'
   id:
@@ -84,6 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/docs'
     | '/api/public/downloader/tiktok'
     | '/api/public/random/cosplay'
   fileRoutesById: FileRoutesById
@@ -92,6 +104,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
+  DocsRoute: typeof DocsRoute
   ApiPublicDownloaderTiktokRoute: typeof ApiPublicDownloaderTiktokRoute
   ApiPublicRandomCosplayRoute: typeof ApiPublicRandomCosplayRoute
 }
@@ -119,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/downloader/tiktok': {
       id: '/api/public/downloader/tiktok'
       path: '/api/public/downloader/tiktok'
@@ -140,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
+  DocsRoute: DocsRoute,
   ApiPublicDownloaderTiktokRoute: ApiPublicDownloaderTiktokRoute,
   ApiPublicRandomCosplayRoute: ApiPublicRandomCosplayRoute,
 }
